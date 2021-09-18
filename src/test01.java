@@ -32,6 +32,8 @@ import java.util.regex.Pattern;
 public class test01 {
     static int totalnum;//第一等级数量
     static int switchnum;//第二等级
+    static int i_e_num;
+    static int i_ei_e_num;
     static String[] keywords={
             "int","long","short","float","double","char","unsigned",
             "signed", "const","void","volatile","enum","struct",
@@ -74,13 +76,14 @@ public class test01 {
 
     //等级4等级5处理
     static void grade4_5(int grade){
+        i_e_num=0;
+        i_ei_e_num=0;
         ArrayList<String>if_else=new ArrayList<String>();
         for(String word:words){
             if(word.equals("if")||word.equals("else")||word.equals("elseif"))
                 if_else.add(word);
         }
         int nums= if_else.size();
-        int i_e_num=0;int i_ei_e_num=0;
         ArrayList<String>ifword=new ArrayList<String>();
         int top=-1;
         //用栈操作计算第if_else 和if_else if_else个数
