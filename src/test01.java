@@ -39,9 +39,13 @@ public class test01 {
             "while","for","continue","break","return","default","elseif",
             "typedef","auto","register","extern", "static", "sizeof"
     };//32个关键字段加elseif，总共33个
+
+
     static ArrayList<String> words=new ArrayList<String>();//存储文件读入的分割完的字符串数组
     static Map<String,Integer> keymap=new HashMap<String,Integer>();//存储关键字段及其个数
     static ArrayList<String>keystring=new ArrayList<String>();//从文件中提取出来的关键字列表
+
+    //等级一处理
     static void grade1(){
         for (Map.Entry<String,Integer> entry: keymap.entrySet()){
             totalnum+=entry.getValue();
@@ -49,6 +53,8 @@ public class test01 {
         }
         System.out.println("totalnum: "+totalnum);
     }
+
+    //等级三处理
     static void grade3(){//循环遍历统计每组switch的case个数并输出
         for(int i=0;i<keystring.size();i++){
             if(keystring.get(i).equals("switch")){
@@ -65,6 +71,8 @@ public class test01 {
             }
         }
     }
+
+    //等级4等级5处理
     static void grade4_5(int grade){
         ArrayList<String>if_else=new ArrayList<String>();
         for(String word:words){
@@ -96,6 +104,8 @@ public class test01 {
         if(grade==4) System.out.println("if_else num: "+i_e_num);
         if(grade==5) System.out.println("if_elseif_else num: "+i_ei_e_num);
     }
+
+
     public static void main(String[] args) {
         for (String word:keywords) {
             keymap.put(word,0);
