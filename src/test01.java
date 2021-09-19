@@ -32,8 +32,8 @@ import java.util.regex.Pattern;
 public class test01 {
     static int totalnum;//第一等级数量
     static int switchnum;//第二等级
-    static int i_e_num;
-    static int i_ei_e_num;
+    static int i_e_num;//if_else的个数
+    static int i_ei_e_num;//if_else if_else的个数
     static String[] keywords={
             "int","long","short","float","double","char","unsigned",
             "signed", "const","void","volatile","enum","struct",
@@ -51,7 +51,8 @@ public class test01 {
     static void grade1(){
         for (Map.Entry<String,Integer> entry: keymap.entrySet()){
             totalnum+=entry.getValue();
-            if(entry.getKey().equals("elseif")) totalnum+= entry.getValue();//计算关键字段个数时，碰到elseif，则多加一次
+            if(entry.getKey().equals("elseif")) totalnum+= entry.getValue();
+            //计算关键字段个数时，碰到elseif，则多加一次
         }
         System.out.println("totalnum: "+totalnum);
     }
@@ -126,18 +127,22 @@ public class test01 {
             String s=null;
             String mys=" ";
             while((s=f.readLine())!=null){//按行读入
-                Pattern pattern=Pattern.compile("//.*");//正则匹配，如果遇到单行注释，则去掉注释号及后面改行内容
+                Pattern pattern=Pattern.compile("//.*");
+                //正则匹配，如果遇到单行注释，则去掉注释号及后面改行内容
                 Matcher matcher= pattern.matcher(s);
                 s=matcher.replaceAll("");
                 mys+=s;//将所有读入行拼接成一个串
             }
-            Pattern pattern=Pattern.compile("/\\*(.*?)\\*/",Pattern.DOTALL);//正则匹配，去掉多行注释符号及其中间内容
+            Pattern pattern=Pattern.compile("/\\*(.*?)\\*/",Pattern.DOTALL);
+            //正则匹配，去掉多行注释符号及其中间内容
             Matcher matcher= pattern.matcher(mys);
             mys=matcher.replaceAll("");
-            Pattern pattern2=Pattern.compile("(?<=\").*?(?=\")");//正则匹配去掉代码中字符串符号及中间内容
+            Pattern pattern2=Pattern.compile("(?<=\").*?(?=\")");
+            //正则匹配去掉代码中字符串符号及中间内容
             Matcher matcher2= pattern2.matcher(mys);
             mys=matcher2.replaceAll("");
-            mys=mys.replace("else if","elseif");//将所有“else if”字段替换成“elseif”,作为一个字段处理
+            mys=mys.replace("else if","elseif");
+            //将所有“else if”字段替换成“elseif”,作为一个字段处理
             //将读入的串按空白符、标点符和各种括号分割，得到一个只有单词的字段
             String[] array=mys.split("\\s+|<+|>+|;+|\\(+|\\)+|\\{+|\\}+|:|\\?|!|,+|:+");
             for(String word:array){
